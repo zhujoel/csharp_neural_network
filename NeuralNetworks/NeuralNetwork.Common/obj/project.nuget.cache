@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "InqALOJbfKOtG53lhy3lPhYZ1TxPNKTnBFeetXw9HWWX4cenMz7k1kXs9ZSjT3I7ZuA6vSNW74QQuJekkhIYpA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Jo\\Desktop\\cours\\neurones\\NeuralNetworks\\NeuralNetwork.Common\\NeuralNetwork.Common.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Jo\\.nuget\\packages\\mathnet.numerics\\4.9.0\\mathnet.numerics.4.9.0.nupkg.sha512",
+    "C:\\Users\\Jo\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Jo\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\Jo\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,17 @@
+C:\Users\Jz\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork.Common\bin\Debug\netstandard2.0\NeuralNetwork.Common.deps.json
+C:\Users\Jz\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork.Common\bin\Debug\netstandard2.0\NeuralNetwork.Common.dll
+C:\Users\Jz\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork.Common\bin\Debug\netstandard2.0\NeuralNetwork.Common.pdb
+C:\Users\Jz\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork.Common\obj\Debug\netstandard2.0\NeuralNetwork.Common.csprojAssemblyReference.cache
+C:\Users\Jz\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork.Common\obj\Debug\netstandard2.0\NeuralNetwork.Common.AssemblyInfoInputs.cache
+C:\Users\Jz\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork.Common\obj\Debug\netstandard2.0\NeuralNetwork.Common.AssemblyInfo.cs
+C:\Users\Jz\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork.Common\obj\Debug\netstandard2.0\NeuralNetwork.Common.csproj.CoreCompileInputs.cache
+C:\Users\Jz\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork.Common\obj\Debug\netstandard2.0\NeuralNetwork.Common.dll
+C:\Users\Jz\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork.Common\obj\Debug\netstandard2.0\NeuralNetwork.Common.pdb
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork.Common\bin\Debug\netstandard2.0\NeuralNetwork.Common.deps.json
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork.Common\bin\Debug\netstandard2.0\NeuralNetwork.Common.dll
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork.Common\bin\Debug\netstandard2.0\NeuralNetwork.Common.pdb
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork.Common\obj\Debug\netstandard2.0\NeuralNetwork.Common.AssemblyInfoInputs.cache
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork.Common\obj\Debug\netstandard2.0\NeuralNetwork.Common.AssemblyInfo.cs
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork.Common\obj\Debug\netstandard2.0\NeuralNetwork.Common.csproj.CoreCompileInputs.cache
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork.Common\obj\Debug\netstandard2.0\NeuralNetwork.Common.dll
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork.Common\obj\Debug\netstandard2.0\NeuralNetwork.Common.pdb
