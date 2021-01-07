@@ -12,7 +12,6 @@ namespace NeuralNetwork
         internal ILayer OutputLayer => Layers[LayerNb - 1];
         public Matrix<double> Output => OutputLayer.Activation;
         
-
         public ILayer[] Layers { get; }
 
         public Mode Mode { get; set; }

@@ -28,4 +28,4 @@ namespace NeuralNetwork.Common.Serialization
         public IGradientAdjustmentParameters GradientAdjustmentParameters { get; set; }
         public LayerType Type => LayerType.Standard;
     }
-}
+}   

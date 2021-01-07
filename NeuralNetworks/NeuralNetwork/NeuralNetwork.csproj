@@ -40,8 +40,6 @@
     <Compile Remove="Layers\L2PenaltyLayer.cs" />
     <Compile Remove="Layers\WeightDecayLayer.cs" />
     <Compile Remove="Serialization\ILayerSerializer.cs" />
-    <Compile Remove="Serialization\LayerSerializer.cs" />
-    <Compile Remove="Serialization\NetworkSerializer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -7,5 +7,11 @@
     {
         public int BatchSize { get; set; }
         public ISerializedLayer[] SerializedLayers { get; set; }
+
+        public SerializedNetwork(int BatchSize, ISerializedLayer[] SerializedLayers)
+        {
+            this.BatchSize = BatchSize;
+            this.SerializedLayers = SerializedLayers;
+        }
     }
 }

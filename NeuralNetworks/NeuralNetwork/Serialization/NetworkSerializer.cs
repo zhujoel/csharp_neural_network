@@ -1,22 +1,18 @@
-﻿using NeuralNetwork.Common;
-using NeuralNetwork.Common.Serialization;
+﻿using NeuralNetwork.Common.Layers;
 
-namespace NeuralNetwork.Serialization
+namespace NeuralNetwork.Common.Serialization
 {
     public static class NetworkSerializer
     {
-        private static LayerSerializer layerSerializer = new LayerSerializer();
-
         public static SerializedNetwork Serialize(INetwork network)
         {
-            var batchSize = network.BatchSize;
-            var layers = network.Layers;
-            var serializedLayers = new ISerializedLayer[layers.Length];
-            for (int i = 0; i < layers.Length; i++)
+            int layerLength = network.Layers.Length;
+            ISerializedLayer[] serializedLayers = new ISerializedLayer[layerLength];
+            for (int i = 0; i < layerLength; ++i)
             {
-                serializedLayers[i] = layerSerializer.Serialize(layers[i]);
+                serializedLayers[i] = LayerSerializer.SerializeLayer(network.Layers[i]);
             }
-            return new SerializedNetwork() { BatchSize = batchSize, SerializedLayers = serializedLayers };
+            return new SerializedNetwork(network.BatchSize, serializedLayers);
         }
     }
 }

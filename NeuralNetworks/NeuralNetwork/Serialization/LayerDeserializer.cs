@@ -1,5 +1,6 @@
 ﻿using MathNet.Numerics.LinearAlgebra;
 using NeuralNetwork.Activators;
+using NeuralNetwork.Common.GradientAdjustmentParameters;
 using NeuralNetwork.Common.Layers;
 using NeuralNetwork.Common.Serialization;
 using NeuralNetwork.Layers;
@@ -29,9 +30,15 @@ namespace NeuralNetwork.Serialization
             var weights = Matrix<double>.Build.DenseOfArray(standardSerialized.Weights);
             var bias = Matrix<double>.Build.DenseOfColumnArrays(new double[][] { standardSerialized.Bias });
             var activator = ActivatorFactory.Build(standardSerialized.ActivatorType);
-            // tp2
-            //var learningRate = 
-            return new BasicStandardLayer(weights, bias, batchSize, activator);
+
+            switch (standardSerialized.GradientAdjustmentParameters.Type)
+            {
+                case GradientAdjustmentType.FixedLearningRate:
+                    var learningRate = standardSerialized.GradientAdjustmentParameters as FixedLearningRateParameters;
+                    return new BasicStandardLayer(weights, bias, batchSize, activator, learningRate);
+                default:
+                    throw new InvalidOperationException("Unknown Gradient Adjustment Parameter Type");
+            }
         }
     }
 }

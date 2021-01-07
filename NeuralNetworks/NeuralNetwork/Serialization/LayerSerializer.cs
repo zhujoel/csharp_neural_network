@@ -1,76 +1,24 @@
 ﻿using NeuralNetwork.Common.Layers;
 using NeuralNetwork.Common.Serialization;
-using NeuralNetwork.GradientAdjustments;
 using NeuralNetwork.Layers;
-using System;
 
-namespace NeuralNetwork.Serialization
+namespace NeuralNetwork
 {
-    internal class LayerSerializer : ILayerSerializer
+    internal static class LayerSerializer
     {
-        public GradientAdjustmentParameterExtractor GradientAdjustmentSerializer { get; }
-
-        public LayerSerializer()
+        public static ISerializedLayer SerializeLayer(ILayer layer)
         {
-            GradientAdjustmentSerializer = new GradientAdjustmentParameterExtractor();
-        }
-
-        public ISerializedLayer Serialize(ILayer layer)
-        {
-            switch (layer)
-            {
-                case StandardLayer standardLayer:
-                    return SerializeStandardLayer(standardLayer);
-
-                case InputStandardizingLayer inputNorm:
-                    return SerializeInputStandardizingLayer(inputNorm);
-
-                case DropoutLayer dropout:
-                    return SerializeDropoutLayer(dropout);
-
-                case L2PenaltyLayer penalty:
-                    return SerializeL2PenaltyLayer(penalty);
-
-                case WeightDecayLayer decay:
-                    return SerializeWeightDecayLayer(decay);
-
-                default:
-                    throw new InvalidOperationException("Unknown layer type: " + layer.GetType());
+            var standardLayer = layer as BasicStandardLayer;
+            var bias = new double[standardLayer.Bias.RowCount * standardLayer.Bias.ColumnCount];
+            int idx = 0;
+            for (int i = 0; i < standardLayer.Bias.RowCount; ++i) { 
+                for(int j = 0; j < standardLayer.Bias.ColumnCount; ++j)
+                {
+                    bias[idx++] = standardLayer.Bias[i, j];
+                }
             }
-        }
-
-        private ISerializedLayer SerializeWeightDecayLayer(WeightDecayLayer decay)
-        {
-            var underlying = Serialize(decay.UnderlyingLayer);
-            return new SerializedWeightDecayLayer(underlying, decay.DecayRate);
-        }
-
-        private ISerializedLayer SerializeL2PenaltyLayer(L2PenaltyLayer penalty)
-        {
-            var underlying = Serialize(penalty.UnderlyingLayer);
-            return new SerializedL2PenaltyLayer(underlying, penalty.PenaltyCoefficient);
-        }
-
-        private ISerializedLayer SerializeDropoutLayer(DropoutLayer dropout)
-        {
-            return new SerializedDropoutLayer(dropout.LayerSize, dropout.KeepProbability);
-        }
-
-        private ISerializedLayer SerializeInputStandardizingLayer(InputStandardizingLayer inputNorm)
-        {
-            var mean = inputNorm.Mean;
-            var stdDev = inputNorm.StdDev;
-            var underlying = Serialize(inputNorm.UnderlyingLayer);
-            return new SerializedInputStandardizingLayer(underlying, mean, stdDev);
-        }
-
-        private ISerializedLayer SerializeStandardLayer(StandardLayer standardLayer)
-        {
-            var bias = standardLayer.MatrixStorage.Bias.ToColumnArrays()[0];
-            var weights = standardLayer.MatrixStorage.Weights.ToArray();
-            var activatorType = standardLayer.Activator.Type;
-            var adjustmentParameters = GradientAdjustmentSerializer.ExtractParameters(standardLayer.GradientAdjustment);
-            return new SerializedStandardLayer(bias, weights, activatorType, adjustmentParameters);
+            var weights = standardLayer.Weights.ToArray();
+            return new SerializedStandardLayer(bias, weights, standardLayer.Activator.Type, standardLayer.LearningParameter);
         }
     }
 }
