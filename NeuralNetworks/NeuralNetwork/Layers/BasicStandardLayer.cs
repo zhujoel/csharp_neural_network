@@ -68,3 +68,12 @@ namespace NeuralNetwork.Layers
         }
     }
 }
+
+// échantillon de taille 100
+// batch de taille 5
+
+// on fait l'algo pour chaque batch de taille 5
+
+// la matrice weight ne change pas 
+// mettre à jour la taille de bias pour qu'elle ait la meme taile que le weight
+

@@ -25,7 +25,6 @@ namespace NeuralNetwork.Layers
         public Matrix<double> Zeta { get; set; }
         public Matrix<double> BRond { get; set; }
         public MomentumParameters MomentumParameter { get; set; }
-        public double Velocity { get; set; }
 
         // TODO: 
         // training steps (correspond au nb de fois que les gradients sont calculés) :
@@ -45,7 +44,6 @@ namespace NeuralNetwork.Layers
             this.Bias = bias;
             this.Weights = weights;
             this.MomentumParameter = momentum;
-            this.Velocity = 0.0;
         }
 
         public void BackPropagate(Matrix<double> upstreamWeightedErrors)
@@ -68,7 +66,7 @@ namespace NeuralNetwork.Layers
         public void UpdateParameters()
         {
             // TODO: adjust gradients
-            this.Velocity = this.MomentumParameter.Momentum * Velocity - this.MomentumParameter.LearningRate * g;
+            //this.Velocity = this.MomentumParameter.Momentum * Velocity - this.MomentumParameter.LearningRate * g;
             var gradWeight = this.Alpha.TransposeAndMultiply(this.BRond);
             var gradBias = this.BRond;
 
