@@ -26,6 +26,9 @@ namespace NeuralNetwork.Layers
         public Matrix<double> BRond { get; set; }
         public FixedLearningRateParameters LearningParameter { get; set; }
 
+        // L2
+        public double penaltyCoefficient { get; set; }
+
         public BasicStandardLayer(Matrix<double> weights, Matrix<double> bias, int batchSize, IActivator activator, FixedLearningRateParameters learningParameter)
         {
             BatchSize = batchSize;
@@ -36,9 +39,12 @@ namespace NeuralNetwork.Layers
             // algo 3 cours 1
             this.Activator = activator;
             this.Bias = bias;
+            //this.Bias.Append(this.Bias);
             this.Weights = weights;
 
             this.LearningParameter = learningParameter;
+
+            //this.penaltyCoefficient = 0.5;
         }
 
         public void BackPropagate(Matrix<double> upstreamWeightedErrors)
@@ -47,6 +53,8 @@ namespace NeuralNetwork.Layers
             this.Zeta.Map(this.Activator.ApplyDerivative, this.Zeta);
             this.BRond = this.Zeta.PointwiseMultiply(upstreamWeightedErrors);
             this.WeightedError = this.Weights.Multiply(this.BRond);
+
+            //this.Weights.Multiply(this.penaltyCoefficient, this.Weights);
         }
 
         public void Propagate(Matrix<double> input)
@@ -62,6 +70,8 @@ namespace NeuralNetwork.Layers
         {
             var gradWeight = this.Alpha.TransposeAndMultiply(this.BRond);
             var gradBias = this.BRond;
+
+            //gradWeight.Add(this.Weights, gradWeight);
 
             this.Weights.Subtract(gradWeight.Multiply(this.LearningParameter.LearningRate / this.BatchSize), this.Weights);
             this.Bias.Subtract(gradBias.Multiply(this.LearningParameter.LearningRate / this.BatchSize), this.Bias);

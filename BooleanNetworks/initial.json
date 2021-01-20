@@ -1,5 +1,5 @@
 {
-	"BatchSize": 5,
+	"BatchSize": 1,
 	"SerializedLayers": [
 		{
 			"Bias": [
