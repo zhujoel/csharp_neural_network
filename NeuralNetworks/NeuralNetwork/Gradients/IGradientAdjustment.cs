@@ -1,8 +1,9 @@
-﻿namespace NeuralNetwork.Gradients
+﻿using MathNet.Numerics.LinearAlgebra;
+
+namespace NeuralNetwork.Gradients
 {
-    // TODO: les implémentations
     internal interface IGradientAdjustment
     {
-        double Adjust(double gradient);
+        Matrix<double> Adjust(Matrix<double> gradient);
     }
 }

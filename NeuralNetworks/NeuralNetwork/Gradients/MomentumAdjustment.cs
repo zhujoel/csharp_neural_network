@@ -1,15 +1,16 @@
-﻿using System;
+﻿using MathNet.Numerics.LinearAlgebra;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace NeuralNetwork.Gradients
 {
-    internal class MomentumAdjustment : IGradientAdjustment
+    public class MomentumAdjustment
     {
-        public double Adjust(double gradient)
+        public static Matrix<double> Adjust(Matrix<double> gradient)
         {
             // on doit retourner delta * v - \eta * g
-            return 0;
+            return gradient.Multiply(5000);
         }
     }
 }

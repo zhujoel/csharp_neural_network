@@ -9,6 +9,7 @@
         InputStandardizing,
         Dropout,
         L2Penalty,
-        WeightDecay
+        WeightDecay,
+        Momentum
     }
 }

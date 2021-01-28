@@ -11,6 +11,12 @@
         public double LearningRate { get; set; }
         public double Momentum { get; set; }
 
+        public MomentumParameters(double learningRate, double momentum)
+        {
+            this.LearningRate = learningRate;
+            this.Momentum = momentum;
+        }
+
         public MomentumParameters()
         {
         }

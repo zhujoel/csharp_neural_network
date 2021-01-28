@@ -1,11 +1,13 @@
-﻿namespace NeuralNetwork.Gradients
+﻿using MathNet.Numerics.LinearAlgebra;
+
+namespace NeuralNetwork.Gradients
 {
-    internal  class FixedLRAdjustment : IGradientAdjustment
+    public class FixedLRAdjustment
     {
-        public double Adjust(double gradient)
+        public static Matrix<double> Adjust(Matrix<double> gradient)
         {
             // on doit retourner \eta * gradient
-            return 0;
+            return null;
         }
     }
 }

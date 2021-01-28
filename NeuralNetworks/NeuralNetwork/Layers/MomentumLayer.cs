@@ -2,6 +2,7 @@
 using NeuralNetwork.Common.Activators;
 using NeuralNetwork.Common.GradientAdjustmentParameters;
 using NeuralNetwork.Common.Layers;
+using NeuralNetwork.Gradients;
 
 namespace NeuralNetwork.Layers
 {
@@ -21,16 +22,10 @@ namespace NeuralNetwork.Layers
         public IActivator Activator { get; }
         public Matrix<double> Bias { get; set; }
         public Matrix<double> Weights { get; set; }
-        public Matrix<double> Alpha { get; set; }
-        public Matrix<double> Zeta { get; set; }
-        public Matrix<double> BRond { get; set; }
         public MomentumParameters MomentumParameter { get; set; }
-
-        // TODO: 
-        // training steps (correspond au nb de fois que les gradients sont calculés) :
-        // pour layer standard, si on a 4 couches avec 1000 neurones, on a 4000 steps
-        // pour layer batch : on divise par la taille d'un batch, si la taille est 4 on a 1000 steps
-        // TODO: vérifier que PropagationComparison est juste en calculant à la main
+        public Matrix<double> Zeta { get; set; }
+        public Matrix<double> B_Rond { get; set; }
+        public Matrix<double> Alpha { get; set; }
 
         public MomentumLayer(Matrix<double> weights, Matrix<double> bias, int batchSize, IActivator activator, MomentumParameters momentum)
         {
@@ -39,41 +34,35 @@ namespace NeuralNetwork.Layers
             LayerSize = weights.ColumnCount;
             Activation = Matrix<double>.Build.Dense(LayerSize, BatchSize);
 
-            // algo 3 cours 1
-            this.Activator = activator;
-            this.Bias = bias;
+            // attributs
             this.Weights = weights;
+            this.Bias = bias;
+            this.Activator = activator;
             this.MomentumParameter = momentum;
         }
 
         public void BackPropagate(Matrix<double> upstreamWeightedErrors)
         {
-            // algo 1 cours 2
-            this.Zeta.Map(this.Activator.ApplyDerivative, this.Zeta);
-            this.BRond = this.Zeta.PointwiseMultiply(upstreamWeightedErrors);
-            this.WeightedError = this.Weights.Multiply(this.BRond);
+            this.B_Rond = this.Zeta.Map(this.Activator.ApplyDerivative).PointwiseMultiply(upstreamWeightedErrors);
+            this.WeightedError = this.Weights.Multiply(this.B_Rond);
         }
 
         public void Propagate(Matrix<double> input)
         {
-            // algo 3 cours 1
             this.Alpha = input;
             this.Zeta = this.Weights.TransposeThisAndMultiply(input).Add(Bias);
             this.Zeta.Map(this.Activator.Apply, this.Activation);
         }
 
-        // algo 2 cours 2
         public void UpdateParameters()
         {
-            // TODO: adjust gradients
-            //this.Velocity = this.MomentumParameter.Momentum * Velocity - this.MomentumParameter.LearningRate * g;
-            var gradWeight = this.Alpha.TransposeAndMultiply(this.BRond);
-            var gradBias = this.BRond;
+            var Grad_Bias = this.B_Rond;
+            var Grad_Weight = this.Alpha.TransposeAndMultiply(this.B_Rond);
 
-            // ici, on calcule les grad, puis on les adjust, puis on applique les lignes 78 et 79 (les 2 lignes suivantes) au gradient ajusté (les gradients ajusté sont teta + avec v la mesure d'ajustement)
+            Grad_Bias = MomentumAdjustment.Adjust(Grad_Bias);
 
-            this.Weights.Subtract(gradWeight.Multiply(this.MomentumParameter.LearningRate/ this.BatchSize), this.Weights);
-            this.Bias.Subtract(gradBias.Multiply(this.MomentumParameter.LearningRate / this.BatchSize), this.Bias);
+            this.Weights = this.Weights.Subtract(Grad_Weight.Multiply(this.MomentumParameter.LearningRate));
+            this.Bias = this.Bias.Subtract(Grad_Bias.Multiply(this.MomentumParameter.LearningRate));
         }
     }
 }

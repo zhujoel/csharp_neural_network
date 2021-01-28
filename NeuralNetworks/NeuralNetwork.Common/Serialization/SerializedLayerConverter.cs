@@ -50,6 +50,9 @@ namespace NeuralNetwork.Common.Serialization
                 case LayerType.WeightDecay:
                     asset = new SerializedWeightDecayLayer();
                     break;
+                case LayerType.Momentum:
+                    asset = new SerializedMomentumLayer();
+                    break;
                 default:
                     throw new InvalidOperationException("Unknown serialized layer: " + readType);
             }
