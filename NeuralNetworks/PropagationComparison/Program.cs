@@ -16,11 +16,15 @@ namespace PropagationComparison
     {
         static void Main(string[] args)
         {
-            var serializedNetworkPath = args[0];
+            //var serializedNetworkPath = args[0];
+            var serializedNetworkPath = "C:\\Users\\Jo\\Desktop\\cours\\neurones\\BooleanNetworks\\test\\network.json";
             var serializedNetwork = JsonConvert.DeserializeObject<SerializedNetwork>(File.ReadAllText(serializedNetworkPath));
             var network = NetworkDeserializer.Deserialize(serializedNetwork);
-            var dataRoot = args[1];
-            var data = GetMathData(dataRoot);
+            //var inputRoot = args[1];
+            var inputRoot = "C:\\Users\\Jo\\Desktop\\cours\\neurones\\BooleanNetworks\\test\\pricing-data-input.csv";
+            //var gradientRoot = args[2];
+            var gradientRoot = "C:\\Users\\Jo\\Desktop\\cours\\neurones\\BooleanNetworks\\test\\pricing-data-output.csv";
+            var data = GetMathData(inputRoot, gradientRoot);
             var dataSize = data.Inputs.ColumnCount;
             network.BatchSize = dataSize;
             network.Propagate(data.Inputs);
@@ -29,16 +33,17 @@ namespace PropagationComparison
             network.Propagate(data.Inputs);
             double[] secondPropagation = ConvertToArray(network.Output);
             var summary = new OutputSummary(firstPropagation, secondPropagation);
-            if (args.Length < 3)
+            if (args.Length < 4)
             {
                 WriteToConsole(summary);
             }
             else
             {
-                var outputFile = args[2];
+                var outputFile = args[3];
                 WriteToFile(summary, outputFile);
             }
 
+            Console.Read();
         }
 
 
@@ -62,11 +67,13 @@ namespace PropagationComparison
             return output.ToRowArrays()[0];
         }
 
-        private static MathData GetMathData(string dataRoot)
+        private static MathData GetMathData(string dataRoot, string gradientEoot)
         {
-            var inputData = dataRoot + "-input.csv";
-            var gradientData = dataRoot + "-gradient.csv";
-            var result = ReadMathData(inputData, gradientData);
+            var input = ReadCsv(dataRoot);
+            var inputMatrix = DenseMatrix.OfColumnArrays(input);
+            var output = ReadCsv(gradientEoot);
+            var outputMatrix = DenseMatrix.OfColumnArrays(output);
+            var result = new MathData(inputMatrix, outputMatrix);
             return result;
         }
 
@@ -84,16 +91,6 @@ namespace PropagationComparison
                     yield return arr;
                 }
             }
-        }
-
-        private static MathData ReadMathData(string inputPath, string outputPath)
-        {
-            var input = ReadCsv(inputPath);
-            var inputMatrix = DenseMatrix.OfColumnArrays(input);
-            var output = ReadCsv(outputPath);
-            var outputMatrix = DenseMatrix.OfColumnArrays(output);
-            var result = new MathData(inputMatrix, outputMatrix);
-            return result;
         }
     }
 }

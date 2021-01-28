@@ -1,0 +1,1 @@
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\PropagationComparison\bin\Debug\PropagationComparison.exe C:\Users\Jo\Desktop\cours\neurones\BooleanNetworks\test\network.json C:\Users\Jo\Desktop\cours\neurones\BooleanNetworks\test\pricing-data-input.csv C:\Users\Jo\Desktop\cours\neurones\BooleanNetworks\test\pricing-data-output.csv
