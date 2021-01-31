@@ -27,6 +27,10 @@ namespace NeuralNetwork.Layers
         public Matrix<double> B_Rond { get; set; }
         public Matrix<double> Alpha { get; set; }
 
+        // momentum
+        public Matrix<double> v1; // weights
+        public Matrix<double> v2; // bias
+
         public MomentumLayer(Matrix<double> weights, Matrix<double> bias, int batchSize, IActivator activator, MomentumParameters momentum)
         {
             BatchSize = batchSize;
@@ -35,10 +39,21 @@ namespace NeuralNetwork.Layers
             Activation = Matrix<double>.Build.Dense(LayerSize, BatchSize);
 
             // attributs
+            this.Bias = bias.Clone();
+            for (int i = 0; i < this.BatchSize - 1; ++i)
+            {
+                this.Bias = this.Bias.Append(bias);
+            }
+
             this.Weights = weights;
-            this.Bias = bias;
             this.Activator = activator;
             this.MomentumParameter = momentum;
+
+            this.v1 = this.Weights.Clone();
+            this.v1.Multiply(0, this.v1);
+
+            this.v2 = this.Bias.Clone();
+            this.v2.Multiply(0, this.v2);
         }
 
         public void BackPropagate(Matrix<double> upstreamWeightedErrors)
@@ -56,13 +71,23 @@ namespace NeuralNetwork.Layers
 
         public void UpdateParameters()
         {
-            var Grad_Bias = this.B_Rond;
+            var Mat_Un = Matrix<double>.Build.Dense(this.BatchSize, 1); // matrice de un (summary page 7 cours 3)
+            Mat_Un.Multiply(0, Mat_Un);
+            Mat_Un.Add(1, Mat_Un);
+
+            var Grad_Bias = this.B_Rond.Multiply(Mat_Un);
+            var Grad_Bias_Clone = Grad_Bias.Clone();
+            for (int i = 0; i < this.BatchSize - 1; ++i)
+            {
+                Grad_Bias = Grad_Bias.Append(Grad_Bias_Clone);
+            }
             var Grad_Weight = this.Alpha.TransposeAndMultiply(this.B_Rond);
 
-            Grad_Bias = MomentumAdjustment.Adjust(Grad_Bias);
+            this.v1 = this.v1.Multiply(this.MomentumParameter.Momentum) - Grad_Weight.Multiply(this.MomentumParameter.LearningRate/this.BatchSize);
+            this.v2 = this.v2.Multiply(this.MomentumParameter.Momentum) - Grad_Bias.Multiply(this.MomentumParameter.LearningRate/this.BatchSize);
 
-            this.Weights = this.Weights.Subtract(Grad_Weight.Multiply(this.MomentumParameter.LearningRate));
-            this.Bias = this.Bias.Subtract(Grad_Bias.Multiply(this.MomentumParameter.LearningRate));
+            this.Weights = this.Weights.Add(v1);
+            this.Bias = this.Bias.Add(v2);
         }
     }
 }
