@@ -25,6 +25,7 @@ namespace NeuralNetwork.Layers
         public Matrix<double> Zeta { get; set; }
         public Matrix<double> B_Rond { get; set; }
         public Matrix<double> Alpha { get; set; }
+        public Matrix<double> Grad_Weight { get; set; }
         public Matrix<double> Mat_Un { get; set; } // matrice de un (summary page 7 cours 3)
 
         // momentum
@@ -39,20 +40,16 @@ namespace NeuralNetwork.Layers
             Activation = Matrix<double>.Build.Dense(LayerSize, BatchSize);
 
             // attributs
-            this.Bias = bias.Clone();
-            for (int i = 0; i < this.BatchSize - 1; ++i)
-            {
-                this.Bias = this.Bias.Append(bias);
-            }
-
-            this.Weights = weights;
-            this.Activator = activator;
-            this.MomentumParameter = momentum;
-            this.Alpha = Matrix<double>.Build.Dense(InputSize, batchSize);
-
             this.Mat_Un = Matrix<double>.Build.Dense(this.BatchSize, 1);
             Mat_Un.Multiply(0, Mat_Un);
             Mat_Un.Add(1, Mat_Un);
+
+            this.Bias = bias.TransposeAndMultiply(Mat_Un);
+            this.Weights = weights;
+            this.Activator = activator;
+            this.MomentumParameter = momentum;
+            this.Grad_Weight = Matrix<double>.Build.Dense(weights.RowCount, weights.ColumnCount);
+
 
             this.v1 = this.Weights.Clone();
             this.v1.Multiply(0, this.v1);
@@ -69,20 +66,15 @@ namespace NeuralNetwork.Layers
 
         public void Propagate(Matrix<double> input)
         {
-            input.CopyTo(this.Alpha);
+            this.Alpha = input;
             this.Zeta = this.Weights.TransposeThisAndMultiply(input).Add(Bias);
             this.Zeta.Map(this.Activator.Apply, this.Activation);
         }
 
         public void UpdateParameters()
         {
-            var Grad_Bias = this.B_Rond.Multiply(this.Mat_Un);
-            var Grad_Bias_Clone = Grad_Bias.Clone();
-            for (int i = 0; i < this.BatchSize - 1; ++i)
-            {
-                Grad_Bias = Grad_Bias.Append(Grad_Bias_Clone);
-            }
-            var Grad_Weight = this.Alpha.TransposeAndMultiply(this.B_Rond);
+            var Grad_Bias = this.B_Rond.Multiply(this.Mat_Un).TransposeAndMultiply(Mat_Un);
+            this.Alpha.TransposeAndMultiply(this.B_Rond, this.Grad_Weight);
 
             this.v1 = this.v1.Multiply(this.MomentumParameter.Momentum) - Grad_Weight.Multiply(this.MomentumParameter.LearningRate/this.BatchSize);
             this.v2 = this.v2.Multiply(this.MomentumParameter.Momentum) - Grad_Bias.Multiply(this.MomentumParameter.LearningRate/this.BatchSize);

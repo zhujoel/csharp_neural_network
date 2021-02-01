@@ -45,7 +45,6 @@ namespace NeuralNetwork.Layers
             this.Weights = weights;
             this.Activator = activator;
             this.LearningParameter = learningParameter;
-            this.Alpha = Matrix<double>.Build.Dense(InputSize, batchSize);
             this.Grad_Weight = Matrix<double>.Build.Dense(weights.RowCount, weights.ColumnCount);
         }
 
@@ -58,7 +57,7 @@ namespace NeuralNetwork.Layers
 
         public void Propagate(Matrix<double> input)
         {
-            input.CopyTo(this.Alpha);
+            this.Alpha = input;
             this.Zeta = this.Weights.TransposeThisAndMultiply(input).Add(Bias);
             this.Zeta.Map(this.Activator.Apply, this.Activation);
         }

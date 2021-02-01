@@ -1,0 +1,1 @@
+on prend toutes les données en training
