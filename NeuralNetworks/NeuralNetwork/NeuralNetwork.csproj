@@ -37,7 +37,6 @@
     <Compile Remove="Layers\ILayerWithMode.cs" />
     <Compile Remove="Layers\ILayerWithStorage.cs" />
     <Compile Remove="Layers\InputStandardizingLayer.cs" />
-    <Compile Remove="Layers\L2PenaltyLayer.cs" />
     <Compile Remove="Layers\WeightDecayLayer.cs" />
     <Compile Remove="Serialization\ILayerSerializer.cs" />
   </ItemGroup>

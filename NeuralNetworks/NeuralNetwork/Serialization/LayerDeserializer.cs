@@ -20,7 +20,9 @@ namespace NeuralNetwork.Serialization
                 case LayerType.Momentum:
                     var momentumSerialized = serializedLayer as SerializedMomentumLayer;
                     return DeserializeMomentumLayer(momentumSerialized, batchSize);
-
+                //case LayerType.L2Penalty:
+                //    var L2Serialized = serializedLayer as SerializedL2PenaltyLayer;
+                //    return DeserializeL2Layer(L2Serialized, batchSize);
                 default:
                     throw new InvalidOperationException("Unknown layer type to deserialize");
             }
@@ -59,5 +61,6 @@ namespace NeuralNetwork.Serialization
                     throw new InvalidOperationException("Unknown Gradient Adjustment Parameter Type");
             }
         }
+
     }
 }

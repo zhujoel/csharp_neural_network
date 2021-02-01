@@ -1,5 +1,6 @@
 {
-	"BatchSize": 4,
+	"BatchSize": 1,
+	"Type": "L2Penalty",
 	"SerializedLayers": [
 		{
 			"Bias": [

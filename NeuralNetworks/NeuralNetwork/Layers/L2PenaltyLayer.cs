@@ -4,20 +4,8 @@ using System;
 
 namespace NeuralNetwork.Layers
 {
-    internal class L2PenaltyLayer : ILayer, IEquatable<L2PenaltyLayer>
+    internal class L2PenaltyLayer : ILayer
     {
-        public L2PenaltyLayer(ILayerWithStorage underlyingLayer, double penaltyCoefficient)
-        {
-            UnderlyingLayer = underlyingLayer ?? throw new ArgumentNullException(nameof(underlyingLayer));
-            PenaltyCoefficient = penaltyCoefficient;
-            PenaltyWeights = Matrix<double>.Build.Dense(UnderlyingLayer.MatrixStorage.Weights.RowCount, UnderlyingLayer.MatrixStorage.Weights.ColumnCount);
-        }
-
-        public Matrix<double> PenaltyWeights { get; }
-        public ILayerWithStorage UnderlyingLayer { get; }
-        public double PenaltyCoefficient { get; }
-        //public IMatrixStorage MatrixStorage => UnderlyingLayer.MatrixStorage;
-
         public int LayerSize => UnderlyingLayer.LayerSize;
 
         public int InputSize => UnderlyingLayer.InputSize;
@@ -31,27 +19,27 @@ namespace NeuralNetwork.Layers
         public Matrix<double> Activation => UnderlyingLayer.Activation;
 
         public Matrix<double> WeightedError => UnderlyingLayer.WeightedError;
-
-        public void BackPropagate(Matrix<double> upstreamWeightedErrors)
+        // attributs supplémentaires
+        public Matrix<double> PenaltyWeights { get; }
+        public BasicStandardLayer UnderlyingLayer { get; }
+        public double Kappa { get; }
+        public L2PenaltyLayer(BasicStandardLayer underlyingLayer, double penaltyCoefficient)
         {
-            UnderlyingLayer.BackPropagate(upstreamWeightedErrors);
-            UnderlyingLayer.MatrixStorage.Weights.Multiply(PenaltyCoefficient, PenaltyWeights);
-            UnderlyingLayer.MatrixStorage.WeightGradients.Add(PenaltyWeights, UnderlyingLayer.MatrixStorage.WeightGradients);
-        }
-
-        public bool Equals(ILayer other)
-        {
-            return other is L2PenaltyLayer penaltyLayer && Equals(penaltyLayer);
-        }
-
-        public bool Equals(L2PenaltyLayer other)
-        {
-            return UnderlyingLayer.Equals(other.UnderlyingLayer) && PenaltyCoefficient == other.PenaltyCoefficient;
+            UnderlyingLayer = underlyingLayer ?? throw new ArgumentNullException(nameof(underlyingLayer));
+            Kappa = penaltyCoefficient;
+            PenaltyWeights = Matrix<double>.Build.Dense(UnderlyingLayer.Weights.RowCount, UnderlyingLayer.Weights.ColumnCount);
         }
 
         public void Propagate(Matrix<double> input)
         {
             UnderlyingLayer.Propagate(input);
+        }
+
+        public void BackPropagate(Matrix<double> upstreamWeightedErrors)
+        {
+            UnderlyingLayer.BackPropagate(upstreamWeightedErrors);
+            UnderlyingLayer.Weights.Multiply(Kappa, PenaltyWeights);
+            //UnderlyingLayer.Grad_Weight.Add(PenaltyWeights, UnderlyingLayer.Grad_Weight);
         }
 
         public void UpdateParameters()
