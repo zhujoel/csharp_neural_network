@@ -8,13 +8,13 @@ namespace NeuralNetwork
     {
         public static ISerializedLayer SerializeLayer(ILayer layer)
         {
-            var standardLayer = layer as BasicStandardLayer;
-            var bias = new double[standardLayer.Bias.RowCount];
-            for (int i = 0; i < standardLayer.Bias.RowCount; ++i) {
-                bias[i] = standardLayer.Bias[i, 0];
+            var L2PenaltyLayer = layer as L2PenaltyLayer;
+            var bias = new double[L2PenaltyLayer.UnderlyingLayer.Bias.RowCount];
+            for (int i = 0; i < L2PenaltyLayer.UnderlyingLayer.Bias.RowCount; ++i) {
+                bias[i] = L2PenaltyLayer.UnderlyingLayer.Bias[i, 0];
             }
-            var weights = standardLayer.Weights.ToArray();
-            return new SerializedStandardLayer(bias, weights, standardLayer.Activator.Type, standardLayer.LearningParameter);
+            var weights = L2PenaltyLayer.UnderlyingLayer.Weights.ToArray();
+            return new SerializedL2PenaltyLayer(new SerializedStandardLayer(bias, weights, L2PenaltyLayer.UnderlyingLayer.Activator.Type, L2PenaltyLayer.UnderlyingLayer.MomentumParameter), L2PenaltyLayer.Kappa);
         }
     }
 }

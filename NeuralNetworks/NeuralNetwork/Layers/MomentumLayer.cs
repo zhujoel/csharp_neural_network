@@ -26,6 +26,7 @@ namespace NeuralNetwork.Layers
         public Matrix<double> B_Rond { get; set; }
         public Matrix<double> Alpha { get; set; }
         public Matrix<double> Grad_Weight { get; set; }
+        public Matrix<double> Grad_Bias { get; set; }
         public Matrix<double> Mat_Un { get; set; } // matrice de un (summary page 7 cours 3)
 
         // momentum
@@ -49,7 +50,7 @@ namespace NeuralNetwork.Layers
             this.Activator = activator;
             this.MomentumParameter = momentum;
             this.Grad_Weight = Matrix<double>.Build.Dense(weights.RowCount, weights.ColumnCount);
-
+            this.Grad_Bias = Matrix<double>.Build.Dense(bias.RowCount, batchSize);
 
             this.v1 = this.Weights.Clone();
             this.v1.Multiply(0, this.v1);
@@ -73,14 +74,17 @@ namespace NeuralNetwork.Layers
 
         public void UpdateParameters()
         {
-            var Grad_Bias = this.B_Rond.Multiply(this.Mat_Un).TransposeAndMultiply(Mat_Un);
+            this.B_Rond.Multiply(this.Mat_Un.Multiply(this.MomentumParameter.LearningRate / this.BatchSize)).TransposeAndMultiply(Mat_Un, this.Grad_Bias);
             this.Alpha.TransposeAndMultiply(this.B_Rond, this.Grad_Weight);
 
-            this.v1 = this.v1.Multiply(this.MomentumParameter.Momentum) - Grad_Weight.Multiply(this.MomentumParameter.LearningRate/this.BatchSize);
-            this.v2 = this.v2.Multiply(this.MomentumParameter.Momentum) - Grad_Bias.Multiply(this.MomentumParameter.LearningRate/this.BatchSize);
+            this.v1.Multiply(this.MomentumParameter.Momentum, this.v1);
+            this.v1.Subtract(Grad_Weight.Multiply(this.MomentumParameter.LearningRate/this.BatchSize), this.v1);
+            
+            this.v2.Multiply(this.MomentumParameter.Momentum, this.v2);
+            this.v2.Subtract(Grad_Bias, this.v2);
 
-            this.Weights = this.Weights.Add(v1);
-            this.Bias = this.Bias.Add(v2);
+            this.Weights.Add(v1, this.Weights);
+            this.Bias.Add(v2, this.Bias);
         }
     }
 }

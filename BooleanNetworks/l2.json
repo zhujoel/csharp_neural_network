@@ -22,7 +22,8 @@
         "ActivatorType": "LeakyReLU",
         "GradientAdjustmentParameters": {
           "LearningRate": 1,
-          "Type": "FixedLearningRate"
+	  "Momentum": 0.5,
+          "Type": "Momentum"
         },
         "Type": "Standard"
       }
@@ -45,7 +46,8 @@
         "ActivatorType": "LeakyReLU",
         "GradientAdjustmentParameters": {
           "LearningRate": 1,
-          "Type": "FixedLearningRate"
+	  "Momentum": 0.5,
+          "Type": "Momentum"
         },
         "Type": "Standard"
       }

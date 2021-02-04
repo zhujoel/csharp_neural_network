@@ -1,1 +1,8 @@
-on prend toutes les données en training
+1 couches cachés
+10 neurones par couche
+1 neurone de sortie
+
+7 inputs -> 10 neurones -> 10 neurones -> 1 sortie
+
+pas d'overfitting
+1000 epochs, validate for 10 epochs

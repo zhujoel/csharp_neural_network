@@ -63,11 +63,11 @@ namespace NeuralNetwork.Layers
 
         public void UpdateParameters()
         {
-            var Grad_Bias = this.B_Rond.Multiply(this.Mat_Un).TransposeAndMultiply(this.Mat_Un);
+            var Grad_Bias = this.B_Rond.Multiply(this.Mat_Un.Multiply(this.LearningParameter.LearningRate / this.BatchSize)).TransposeAndMultiply(this.Mat_Un);
             this.Alpha.TransposeAndMultiply(this.B_Rond, this.Grad_Weight);
 
             this.Weights.Subtract(Grad_Weight.Multiply(this.LearningParameter.LearningRate/this.BatchSize), this.Weights);
-            this.Bias.Subtract(Grad_Bias.Multiply(this.LearningParameter.LearningRate/this.BatchSize), this.Bias);
+            this.Bias.Subtract(Grad_Bias, this.Bias);
         }
     }
 }

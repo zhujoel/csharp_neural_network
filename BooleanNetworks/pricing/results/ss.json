@@ -1,1 +1,0 @@
-{"BatchSize":1,"SerializedLayers":[{"Bias":["NaN"],"Weights":[["NaN"],["NaN"],["NaN"],["NaN"],["NaN"],["NaN"],["NaN"]],"ActivatorType":"LeakyReLU","GradientAdjustmentParameters":{"LearningRate":0.1,"Type":"FixedLearningRate"},"Type":"Standard"}]}

@@ -1,0 +1,5 @@
+3 couches cachés
+30 neurones par couche
+1 neurone de sortie
+
+7 inputs -> 30 neurones -> 30 neurones -> 30 neurones -> 1 sortie

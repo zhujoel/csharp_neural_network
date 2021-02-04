@@ -1,5 +1,5 @@
 {
-	"BatchSize": 1,
+	"BatchSize": 4,
 	"SerializedLayers": [
 		{
 			"Bias": [
@@ -18,7 +18,7 @@
 			],
 			"ActivatorType": "LeakyReLU",
 			"GradientAdjustmentParameters": {
-				"LearningRate": 0.5,
+				"LearningRate": 1,
 				"Type": "FixedLearningRate"
 			},
 			"Type": "Standard"
@@ -37,7 +37,7 @@
 			],
 			"ActivatorType": "LeakyReLU",
 			"GradientAdjustmentParameters": {
-				"LearningRate": 0.5,
+				"LearningRate": 1,
 				"Type": "FixedLearningRate"
 			},
 			"Type": "Standard"
