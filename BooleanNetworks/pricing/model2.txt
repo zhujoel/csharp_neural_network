@@ -1,1 +1,7 @@
-on prend toutes les données en training
+weights crée avec Gaussian initialization
+7 neurones d'entrée
+
+1 couche caché de 10 neurones
+
+1 neurone de sorti
+pas de bias

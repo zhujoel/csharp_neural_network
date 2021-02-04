@@ -21,11 +21,11 @@ namespace NeuralNetwork.Layers
         public Matrix<double> WeightedError => UnderlyingLayer.WeightedError;
         // attributs supplémentaires
         public Matrix<double> PenaltyWeights { get; }
-        public BasicStandardLayer UnderlyingLayer { get; }
+        public MomentumLayer UnderlyingLayer { get; }
         public double Kappa { get; }
-        public L2PenaltyLayer(BasicStandardLayer underlyingLayer, double penaltyCoefficient)
+        public L2PenaltyLayer(ILayer underlyingLayer, double penaltyCoefficient)
         {
-            UnderlyingLayer = underlyingLayer ?? throw new ArgumentNullException(nameof(underlyingLayer));
+            UnderlyingLayer = underlyingLayer as MomentumLayer;
             Kappa = penaltyCoefficient;
             PenaltyWeights = Matrix<double>.Build.Dense(UnderlyingLayer.Weights.RowCount, UnderlyingLayer.Weights.ColumnCount);
         }
@@ -39,7 +39,7 @@ namespace NeuralNetwork.Layers
         {
             UnderlyingLayer.BackPropagate(upstreamWeightedErrors);
             UnderlyingLayer.Weights.Multiply(Kappa, PenaltyWeights);
-            //UnderlyingLayer.Grad_Weight.Add(PenaltyWeights, UnderlyingLayer.Grad_Weight);
+            UnderlyingLayer.Grad_Weight.Add(PenaltyWeights, UnderlyingLayer.Grad_Weight);
         }
 
         public void UpdateParameters()

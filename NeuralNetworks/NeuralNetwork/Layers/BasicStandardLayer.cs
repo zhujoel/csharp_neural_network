@@ -50,7 +50,6 @@ namespace NeuralNetwork.Layers
 
         public void BackPropagate(Matrix<double> upstreamWeightedErrors)
         {
-            //this.Grad_Weight.Multiply(0, this.Grad_Weight); // L2
             this.B_Rond = this.Zeta.Map(this.Activator.ApplyDerivative).PointwiseMultiply(upstreamWeightedErrors);
             this.WeightedError = this.Weights.Multiply(this.B_Rond);
         }
@@ -64,9 +63,7 @@ namespace NeuralNetwork.Layers
 
         public void UpdateParameters()
         {
-            var Grad_Bias = this.B_Rond.Multiply(this.Mat_Un).TransposeAndMultiply(Mat_Un);
-            
-            //this.Grad_Weight.Add(this.Alpha.TransposeAndMultiply(this.B_Rond), this.Grad_Weight); // L2
+            var Grad_Bias = this.B_Rond.Multiply(this.Mat_Un).TransposeAndMultiply(this.Mat_Un);
             this.Alpha.TransposeAndMultiply(this.B_Rond, this.Grad_Weight);
 
             this.Weights.Subtract(Grad_Weight.Multiply(this.LearningParameter.LearningRate/this.BatchSize), this.Weights);

@@ -17,12 +17,9 @@ namespace NeuralNetwork.Serialization
                 case LayerType.Standard:
                     var standardSerialized = serializedLayer as SerializedStandardLayer;
                     return DeserializeStandardLayer(standardSerialized, batchSize);
-                case LayerType.Momentum:
-                    var momentumSerialized = serializedLayer as SerializedMomentumLayer;
-                    return DeserializeMomentumLayer(momentumSerialized, batchSize);
-                //case LayerType.L2Penalty:
-                //    var L2Serialized = serializedLayer as SerializedL2PenaltyLayer;
-                //    return DeserializeL2Layer(L2Serialized, batchSize);
+                case LayerType.L2Penalty:
+                    var L2Serialized = serializedLayer as SerializedL2PenaltyLayer;
+                    return DeserializeL2Layer(L2Serialized, batchSize);
                 default:
                     throw new InvalidOperationException("Unknown layer type to deserialize");
             }
@@ -41,22 +38,29 @@ namespace NeuralNetwork.Serialization
                 case GradientAdjustmentType.FixedLearningRate:
                     var learningRate = standardSerialized.GradientAdjustmentParameters as FixedLearningRateParameters;
                     return new BasicStandardLayer(weights, bias, batchSize, activator, learningRate);
+                case GradientAdjustmentType.Momentum:
+                    var momentum = standardSerialized.GradientAdjustmentParameters as MomentumParameters;
+                    return new MomentumLayer(weights, bias, batchSize, activator, momentum);
                 default:
                     throw new InvalidOperationException("Unknown Gradient Adjustment Parameter Type");
             }
         }
-
-        private static ILayer DeserializeMomentumLayer(SerializedMomentumLayer momentumSerialized, int batchSize)
+        private static ILayer DeserializeL2Layer(SerializedL2PenaltyLayer l2Serialized, int batchSize)
         {
-            var weights = Matrix<double>.Build.DenseOfArray(momentumSerialized.Weights);
-            var bias = Matrix<double>.Build.DenseOfColumnArrays(new double[][] { momentumSerialized.Bias });
-            var activator = ActivatorFactory.Build(momentumSerialized.ActivatorType);
+            var underlyingSerialized = l2Serialized.UnderlyingSerializedLayer as SerializedStandardLayer;
 
-            switch (momentumSerialized.GradientAdjustmentParameters.Type)
+            var weights = Matrix<double>.Build.DenseOfArray(underlyingSerialized.Weights);
+            var bias = Matrix<double>.Build.DenseOfColumnArrays(new double[][] { underlyingSerialized.Bias });
+            var activator = ActivatorFactory.Build(underlyingSerialized.ActivatorType);
+
+            switch (underlyingSerialized.GradientAdjustmentParameters.Type)
             {
+                case GradientAdjustmentType.FixedLearningRate:
+                    var learningRate = underlyingSerialized.GradientAdjustmentParameters as FixedLearningRateParameters;
+                    return new L2PenaltyLayer(new BasicStandardLayer(weights, bias, batchSize, activator, learningRate), l2Serialized.PenaltyCoefficient) ;
                 case GradientAdjustmentType.Momentum:
-                    var momentumParameter = momentumSerialized.GradientAdjustmentParameters as MomentumParameters;
-                    return new MomentumLayer(weights, bias, batchSize, activator, momentumParameter);
+                    var momentum = underlyingSerialized.GradientAdjustmentParameters as MomentumParameters;
+                    return new L2PenaltyLayer(new MomentumLayer(weights, bias, batchSize, activator, momentum), l2Serialized.PenaltyCoefficient);
                 default:
                     throw new InvalidOperationException("Unknown Gradient Adjustment Parameter Type");
             }

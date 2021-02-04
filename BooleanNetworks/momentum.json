@@ -21,7 +21,7 @@
 				"LearningRate": 0.2,									"Momentum": 0.1,
 				"Type": "Momentum"
 			},
-			"Type": "Momentum"
+			"Type": "Standard"
 		},
 		{
 			"Bias": [
@@ -41,7 +41,7 @@
 				"Momentum": 0.1,
 				"Type": "Momentum"
 			},
-			"Type": "Momentum"
+			"Type": "Standard"
 		}
 	]
 }
