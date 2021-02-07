@@ -1,5 +1,6 @@
 ﻿using MathNet.Numerics.LinearAlgebra;
 using NeuralNetwork.Common.Activators;
+using NeuralNetwork.Common.GradientAdjustmentParameters;
 using NeuralNetwork.Common.Layers;
 using NeuralNetwork.Gradients;
 
@@ -22,6 +23,7 @@ namespace NeuralNetwork.Layers
         public Matrix<double> Bias { get; set; }
         public Matrix<double> Weights { get; set; }
         public IGradientAdjustment Adjustment { get; set; }
+        public IGradientAdjustmentParameters Parameters { get; set; }
         public Matrix<double> Zeta { get; set; }
         public Matrix<double> B_Rond { get; set; }
         public Matrix<double> Alpha { get; set; }
@@ -30,7 +32,7 @@ namespace NeuralNetwork.Layers
         public Matrix<double> Mat_Un { get; set; } // matrice de un (summary page 7 cours 3)
 
 
-        public BasicStandardLayer(Matrix<double> weights, Matrix<double> bias, int batchSize, IActivator activator, IGradientAdjustment adjustment)
+        public BasicStandardLayer(Matrix<double> weights, Matrix<double> bias, int batchSize, IActivator activator, IGradientAdjustmentParameters parameters, IGradientAdjustment adjustment)
         {
             BatchSize = batchSize;
             InputSize = weights.RowCount;
@@ -47,6 +49,7 @@ namespace NeuralNetwork.Layers
             this.Activator = activator;
             this.Grad_Weight = Matrix<double>.Build.Dense(weights.RowCount, weights.ColumnCount);
             this.Grad_Bias = Matrix<double>.Build.Dense(bias.RowCount, batchSize);
+            this.Parameters = parameters;
             this.Adjustment = adjustment;
         }
 

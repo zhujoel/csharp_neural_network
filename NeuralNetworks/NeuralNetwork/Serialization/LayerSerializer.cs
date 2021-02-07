@@ -1,7 +1,5 @@
-﻿using NeuralNetwork.Common.GradientAdjustmentParameters;
-using NeuralNetwork.Common.Layers;
+﻿using NeuralNetwork.Common.Layers;
 using NeuralNetwork.Common.Serialization;
-using NeuralNetwork.Gradients;
 using NeuralNetwork.Layers;
 using System;
 
@@ -39,21 +37,7 @@ namespace NeuralNetwork
             }
             var weights = standardLayer.Weights.ToArray();
 
-            var type = standardLayer.Adjustment.GetType().ToString();
-            switch (type)
-            {
-                // TODO: il y aura un pb avec le LR là
-                case "NeuralNetwork.Gradients.FixedLRAdjustment":
-                    var learningRate = new FixedLearningRateParameters(standardLayer.Adjustment.LearningRate*layer.BatchSize);
-                    return new SerializedStandardLayer(bias, weights, standardLayer.Activator.Type, learningRate);
-                case "NeuralNetwork.Gradients.MomentumAdjustment":
-                    var momentum = standardLayer.Adjustment as MomentumAdjustment;
-                    var m2 = new MomentumParameters(momentum.LearningRate * layer.BatchSize, momentum.Momentum);
-                    return new SerializedStandardLayer(bias, weights, standardLayer.Activator.Type, m2);
-                default:
-                    throw new InvalidOperationException("Unknown Gradient Adjustment Parameter Type");
-            }
+            return new SerializedStandardLayer(bias, weights, standardLayer.Activator.Type, standardLayer.Parameters);
         }
-
     }
 }
