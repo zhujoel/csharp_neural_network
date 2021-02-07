@@ -21,11 +21,11 @@ namespace NeuralNetwork.Layers
         public Matrix<double> WeightedError => UnderlyingLayer.WeightedError;
         // attributs supplémentaires
         public Matrix<double> PenaltyWeights { get; }
-        public MomentumLayer UnderlyingLayer { get; }
+        public BasicStandardLayer UnderlyingLayer { get; }
         public double Kappa { get; }
         public L2PenaltyLayer(ILayer underlyingLayer, double penaltyCoefficient)
         {
-            UnderlyingLayer = underlyingLayer as MomentumLayer;
+            UnderlyingLayer = underlyingLayer as BasicStandardLayer;
             Kappa = penaltyCoefficient;
             PenaltyWeights = Matrix<double>.Build.Dense(UnderlyingLayer.Weights.RowCount, UnderlyingLayer.Weights.ColumnCount);
         }

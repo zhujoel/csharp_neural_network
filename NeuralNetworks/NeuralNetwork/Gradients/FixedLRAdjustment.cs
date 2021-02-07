@@ -1,13 +1,26 @@
 ﻿using MathNet.Numerics.LinearAlgebra;
+using NeuralNetwork.Common.GradientAdjustmentParameters;
 
 namespace NeuralNetwork.Gradients
 {
-    public class FixedLRAdjustment
+    public class FixedLRAdjustment : IGradientAdjustment
     {
-        public static Matrix<double> Adjust(Matrix<double> gradient)
+        readonly FixedLearningRateParameters LearningRate;
+
+        public IGradientAdjustmentParameters GradientParameter { get => this.LearningRate; }
+
+        public FixedLRAdjustment(FixedLearningRateParameters learningRate)
         {
-            // on doit retourner \eta * gradient
-            return null;
+            this.LearningRate = learningRate;
+        }
+        public void AdjustWeight(Matrix<double> weight, Matrix<double> gradient)
+        {
+            weight.Subtract(gradient.Multiply(this.LearningRate.LearningRate), weight);
+        }
+
+        public void AdjustBias(Matrix<double> bias, Matrix<double> gradient)
+        {
+            bias.Subtract(gradient.Multiply(this.LearningRate.LearningRate), bias);
         }
     }
 }

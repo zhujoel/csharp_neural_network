@@ -1,7 +1,7 @@
 ﻿using MathNet.Numerics.LinearAlgebra;
 using NeuralNetwork.Common.Activators;
-using NeuralNetwork.Common.GradientAdjustmentParameters;
 using NeuralNetwork.Common.Layers;
+using NeuralNetwork.Gradients;
 
 namespace NeuralNetwork.Layers
 {
@@ -21,15 +21,16 @@ namespace NeuralNetwork.Layers
         public IActivator Activator { get; }
         public Matrix<double> Bias { get; set; }
         public Matrix<double> Weights { get; set; }
-        public FixedLearningRateParameters LearningParameter { get; set; }
+        public IGradientAdjustment Adjustment { get; set; }
         public Matrix<double> Zeta { get; set; }
         public Matrix<double> B_Rond { get; set; }
         public Matrix<double> Alpha { get; set; }
         public Matrix<double> Grad_Weight { get; set; }
+        public Matrix<double> Grad_Bias { get; set; }
         public Matrix<double> Mat_Un { get; set; } // matrice de un (summary page 7 cours 3)
 
 
-        public BasicStandardLayer(Matrix<double> weights, Matrix<double> bias, int batchSize, IActivator activator, FixedLearningRateParameters learningParameter)
+        public BasicStandardLayer(Matrix<double> weights, Matrix<double> bias, int batchSize, IActivator activator, IGradientAdjustment adjustment)
         {
             BatchSize = batchSize;
             InputSize = weights.RowCount;
@@ -44,8 +45,9 @@ namespace NeuralNetwork.Layers
             this.Bias = bias.TransposeAndMultiply(Mat_Un);
             this.Weights = weights;
             this.Activator = activator;
-            this.LearningParameter = learningParameter;
             this.Grad_Weight = Matrix<double>.Build.Dense(weights.RowCount, weights.ColumnCount);
+            this.Grad_Bias = Matrix<double>.Build.Dense(bias.RowCount, batchSize);
+            this.Adjustment = adjustment;
         }
 
         public void BackPropagate(Matrix<double> upstreamWeightedErrors)
@@ -63,11 +65,11 @@ namespace NeuralNetwork.Layers
 
         public void UpdateParameters()
         {
-            var Grad_Bias = this.B_Rond.Multiply(this.Mat_Un.Multiply(this.LearningParameter.LearningRate / this.BatchSize)).TransposeAndMultiply(this.Mat_Un);
+            this.B_Rond.Multiply(this.Mat_Un).TransposeAndMultiply(Mat_Un, this.Grad_Bias); // we take into account the dimension change from batch size
             this.Alpha.TransposeAndMultiply(this.B_Rond, this.Grad_Weight);
 
-            this.Weights.Subtract(Grad_Weight.Multiply(this.LearningParameter.LearningRate/this.BatchSize), this.Weights);
-            this.Bias.Subtract(Grad_Bias, this.Bias);
+            this.Adjustment.AdjustWeight(this.Weights, Grad_Weight);
+            this.Adjustment.AdjustBias(this.Bias, Grad_Bias);
         }
     }
 }
