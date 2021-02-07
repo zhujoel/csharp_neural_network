@@ -65,7 +65,7 @@ namespace NeuralNetwork.Layers
 
         public void UpdateParameters()
         {
-            this.B_Rond.Multiply(this.Mat_Un).TransposeAndMultiply(Mat_Un, this.Grad_Bias); // we take into account the dimension change from batch size
+            this.B_Rond.Multiply(this.Mat_Un.Multiply(this.Adjustment.LearningRate)).TransposeAndMultiply(Mat_Un, this.Grad_Bias); // we take into account the dimension change from batch size
             this.Alpha.TransposeAndMultiply(this.B_Rond, this.Grad_Weight);
 
             this.Adjustment.AdjustWeight(this.Weights, Grad_Weight);

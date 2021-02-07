@@ -5,22 +5,22 @@ namespace NeuralNetwork.Gradients
 {
     public class FixedLRAdjustment : IGradientAdjustment
     {
-        readonly FixedLearningRateParameters LearningRate;
+        public double LearningRate;
 
-        public IGradientAdjustmentParameters GradientParameter { get => this.LearningRate; }
+        double IGradientAdjustment.LearningRate => LearningRate;
 
         public FixedLRAdjustment(FixedLearningRateParameters learningRate)
         {
-            this.LearningRate = learningRate;
+            this.LearningRate = learningRate.LearningRate;
         }
         public void AdjustWeight(Matrix<double> weight, Matrix<double> gradient)
         {
-            weight.Subtract(gradient.Multiply(this.LearningRate.LearningRate), weight);
+            weight.Subtract(gradient.Multiply(this.LearningRate), weight);
         }
 
         public void AdjustBias(Matrix<double> bias, Matrix<double> gradient)
         {
-            bias.Subtract(gradient.Multiply(this.LearningRate.LearningRate), bias);
+            bias.Subtract(gradient, bias);
         }
     }
 }

@@ -37,18 +37,19 @@ namespace NeuralNetwork
                 bias[i] = standardLayer.Bias[i, 0];
             }
             var weights = standardLayer.Weights.ToArray();
-            switch (standardLayer.Adjustment.GradientParameter.Type)
-            {
-                // TODO: il y aura un pb avec le LR là
-                case GradientAdjustmentType.FixedLearningRate:
-                    var learningRate = standardLayer.Adjustment.GradientParameter as FixedLearningRateParameters;
-                    return new SerializedStandardLayer(bias, weights, standardLayer.Activator.Type, learningRate);
-                case GradientAdjustmentType.Momentum:
-                    var momentum = standardLayer.Adjustment.GradientParameter as MomentumParameters;
-                    return new SerializedStandardLayer(bias, weights, standardLayer.Activator.Type, momentum);
-                default:
-                    throw new InvalidOperationException("Unknown Gradient Adjustment Parameter Type");
-            }
+            //switch (standardLayer.Adjustment.GradientParameter.Type)
+            //{
+            //    // TODO: il y aura un pb avec le LR là
+            //    case GradientAdjustmentType.FixedLearningRate:
+            //        var learningRate = standardLayer.Adjustment.GradientParameter as FixedLearningRateParameters;
+            //        return new SerializedStandardLayer(bias, weights, standardLayer.Activator.Type, learningRate);
+            //    case GradientAdjustmentType.Momentum:
+            //        var momentum = standardLayer.Adjustment.GradientParameter as MomentumParameters;
+            //        return new SerializedStandardLayer(bias, weights, standardLayer.Activator.Type, momentum);
+            //    default:
+            //        throw new InvalidOperationException("Unknown Gradient Adjustment Parameter Type");
+            //}
+            return new SerializedStandardLayer(bias, weights, standardLayer.Activator.Type, new FixedLearningRateParameters(1));
         }
 
     }
