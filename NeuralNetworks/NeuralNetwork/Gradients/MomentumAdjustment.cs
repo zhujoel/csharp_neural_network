@@ -8,7 +8,7 @@ namespace NeuralNetwork.Gradients
 {
     public class MomentumAdjustment : IGradientAdjustment
     {
-        readonly double Momentum;
+        public double Momentum;
         public double LearningRate;
 
         readonly Matrix<double> Weight_Velocity;
