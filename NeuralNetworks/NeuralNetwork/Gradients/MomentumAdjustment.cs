@@ -34,7 +34,7 @@ namespace NeuralNetwork.Gradients
         {
             this.Bias_Velocity.Multiply(this.Momentum.Momentum, this.Bias_Velocity);
             this.Bias_Velocity.Subtract(gradient.Multiply(this.Momentum.LearningRate), this.Bias_Velocity);
-            bias.Add(this.Weight_Velocity, bias);
+            bias.Add(this.Bias_Velocity, bias);
         }
     }
 }

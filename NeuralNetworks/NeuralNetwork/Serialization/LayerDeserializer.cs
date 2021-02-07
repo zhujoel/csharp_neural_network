@@ -38,13 +38,13 @@ namespace NeuralNetwork.Serialization
             {
                 case GradientAdjustmentType.FixedLearningRate:
                     var learningRate = standardSerialized.GradientAdjustmentParameters as FixedLearningRateParameters;
-                    learningRate.LearningRate = learningRate.LearningRate / batchSize;
-                    var LRAdjustment = new FixedLRAdjustment(learningRate);
+                    var lr2 = new FixedLearningRateParameters(learningRate.LearningRate / batchSize);
+                    var LRAdjustment = new FixedLRAdjustment(lr2);
                     return new BasicStandardLayer(weights, bias, batchSize, activator, LRAdjustment);
                 case GradientAdjustmentType.Momentum:
                     var momentum = standardSerialized.GradientAdjustmentParameters as MomentumParameters;
-                    momentum.LearningRate = momentum.LearningRate / batchSize;
-                    var momentumAdjustment = new MomentumAdjustment(momentum, weights, bias, batchSize);
+                    var m2 = new MomentumParameters(momentum.LearningRate / batchSize, momentum.Momentum);
+                    var momentumAdjustment = new MomentumAdjustment(m2, weights, bias, batchSize);
                     return new BasicStandardLayer(weights, bias, batchSize, activator, momentumAdjustment);
                 default:
                     throw new InvalidOperationException("Unknown Gradient Adjustment Parameter Type");
