@@ -1,0 +1,14 @@
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\DataProviders\bin\Release\netstandard2.0\DataProviders.deps.json
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\DataProviders\bin\Release\netstandard2.0\DataProviders.dll
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\DataProviders\bin\Release\netstandard2.0\DataProviders.pdb
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\DataProviders\bin\Release\netstandard2.0\NeuralNetwork.Common.dll
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\DataProviders\bin\Release\netstandard2.0\NeuralNetwork.Common.pdb
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\DataProviders\obj\Release\netstandard2.0\DataProviders.csprojAssemblyReference.cache
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\DataProviders\obj\Release\netstandard2.0\DataProviders.Properties.Resources.resources
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\DataProviders\obj\Release\netstandard2.0\DataProviders.csproj.GenerateResource.cache
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\DataProviders\obj\Release\netstandard2.0\DataProviders.AssemblyInfoInputs.cache
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\DataProviders\obj\Release\netstandard2.0\DataProviders.AssemblyInfo.cs
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\DataProviders\obj\Release\netstandard2.0\DataProviders.csproj.CoreCompileInputs.cache
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\DataProviders\obj\Release\netstandard2.0\DataProviders.csproj.CopyComplete
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\DataProviders\obj\Release\netstandard2.0\DataProviders.dll
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\DataProviders\obj\Release\netstandard2.0\DataProviders.pdb

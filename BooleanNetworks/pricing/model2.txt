@@ -1,8 +1,0 @@
-2 couches cachés
-20 neurones par couche
-1 neurone de sortie
-
-7 inputs -> 20 neurones -> 20 neurones -> 1 sortie
-
-
-resultat -> pas d'overfitting

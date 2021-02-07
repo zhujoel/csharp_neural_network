@@ -1,0 +1,12 @@
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork\bin\Release\netstandard2.0\NeuralNetwork.deps.json
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork\bin\Release\netstandard2.0\NeuralNetwork.dll
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork\bin\Release\netstandard2.0\NeuralNetwork.pdb
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork\bin\Release\netstandard2.0\NeuralNetwork.Common.dll
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork\bin\Release\netstandard2.0\NeuralNetwork.Common.pdb
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork\obj\Release\netstandard2.0\NeuralNetwork.csprojAssemblyReference.cache
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork\obj\Release\netstandard2.0\NeuralNetwork.AssemblyInfoInputs.cache
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork\obj\Release\netstandard2.0\NeuralNetwork.AssemblyInfo.cs
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork\obj\Release\netstandard2.0\NeuralNetwork.csproj.CoreCompileInputs.cache
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork\obj\Release\netstandard2.0\NeuralNetwork.csproj.CopyComplete
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork\obj\Release\netstandard2.0\NeuralNetwork.dll
+C:\Users\Jo\Desktop\cours\neurones\NeuralNetworks\NeuralNetwork\obj\Release\netstandard2.0\NeuralNetwork.pdb
