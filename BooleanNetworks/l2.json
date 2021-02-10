@@ -3,7 +3,7 @@
   "SerializedLayers": [
     {
       "Type": "L2Penalty",
-      "PenaltyCoefficient": 0.5,
+      "PenaltyCoefficient": 100,
       "UnderlyingSerializedLayer": {
         "Bias": [
           0,
@@ -21,16 +21,15 @@
         ],
         "ActivatorType": "LeakyReLU",
         "GradientAdjustmentParameters": {
-          "LearningRate": 1,
-	  "Momentum": 0.5,
-          "Type": "Momentum"
+          "LearningRate": 0.5,
+          "Type": "FixedLearningRate"
         },
         "Type": "Standard"
       }
     },
     {
       "Type": "L2Penalty",
-      "PenaltyCoefficient": 0.5,
+      "PenaltyCoefficient": 100,
       "UnderlyingSerializedLayer": {
         "Bias": [
           0
@@ -45,9 +44,8 @@
         ],
         "ActivatorType": "LeakyReLU",
         "GradientAdjustmentParameters": {
-          "LearningRate": 1,
-	  "Momentum": 0.5,
-          "Type": "Momentum"
+          "LearningRate": 0.5,
+          "Type": "FixedLearningRate"
         },
         "Type": "Standard"
       }

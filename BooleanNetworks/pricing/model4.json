@@ -3,7 +3,7 @@
   "SerializedLayers": [
     {
       "Type": "L2Penalty",
-      "PenaltyCoefficient": 0.5,
+      "PenaltyCoefficient": 0.0,
       "UnderlyingSerializedLayer": {
         "Bias": [
           0,
@@ -51,7 +51,7 @@
         "ActivatorType": "LeakyReLU",
         "GradientAdjustmentParameters": {
           "LearningRate": 0.001,
-          "Momentum": 0.1,
+          "Momentum": 0.2,
           "Type": "Momentum"
         },
         "Type": "Standard"
@@ -59,7 +59,7 @@
     },
     {
       "Type": "L2Penalty",
-      "PenaltyCoefficient": 0.5,
+      "PenaltyCoefficient": 0.0,
       "UnderlyingSerializedLayer": {
         "Bias": [
           0,
@@ -107,7 +107,7 @@
         "ActivatorType": "LeakyReLU",
         "GradientAdjustmentParameters": {
           "LearningRate": 0.001,
-          "Momentum": 0.1,
+          "Momentum": 0.2,
           "Type": "Momentum"
         },
         "Type": "Standard"
@@ -115,7 +115,7 @@
     },
     {
       "Type": "L2Penalty",
-      "PenaltyCoefficient": 0.5,
+      "PenaltyCoefficient": 0.0,
       "UnderlyingSerializedLayer": {
         "Bias": [
           0,
@@ -163,7 +163,7 @@
         "ActivatorType": "LeakyReLU",
         "GradientAdjustmentParameters": {
           "LearningRate": 0.001,
-          "Momentum": 0.1,
+          "Momentum": 0.2,
           "Type": "Momentum"
         },
         "Type": "Standard"
@@ -171,7 +171,7 @@
     },
 {
       "Type": "L2Penalty",
-      "PenaltyCoefficient": 0.5,
+      "PenaltyCoefficient": 0.0,
       "UnderlyingSerializedLayer": {
         "Bias": [
           0,
@@ -220,7 +220,7 @@
        "ActivatorType": "LeakyReLU",
         "GradientAdjustmentParameters": {
           "LearningRate": 0.001,
-          "Momentum": 0.1,
+          "Momentum": 0.2,
           "Type": "Momentum"
         },
         "Type": "Standard"
@@ -228,7 +228,7 @@
     },
     {
       "Type": "L2Penalty",
-      "PenaltyCoefficient": 0.5,
+      "PenaltyCoefficient": 0.0,
       "UnderlyingSerializedLayer": {
         "Bias": [
           0
@@ -237,7 +237,7 @@
         "ActivatorType": "LeakyReLU",
         "GradientAdjustmentParameters": {
           "LearningRate": 0.001,
-          "Momentum": 0.1,
+          "Momentum": 0.2,
           "Type": "Momentum"
         },
         "Type": "Standard"

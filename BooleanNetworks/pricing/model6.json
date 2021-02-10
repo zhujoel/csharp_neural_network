@@ -105,8 +105,8 @@
         ],
         "ActivatorType": "LeakyReLU",
         "GradientAdjustmentParameters": {
-				"LearningRate": 0.001,	
-				"Momentum": 0.1,
+				"LearningRate": 0.005,	
+				"Momentum": 0.3,
           "Type": "Momentum"
         },
         "Type": "Standard"
@@ -252,8 +252,8 @@
         ],
         "ActivatorType": "LeakyReLU",
         "GradientAdjustmentParameters": {
-				"LearningRate": 0.001,	
-				"Momentum": 0.1,
+				"LearningRate": 0.005,	
+				"Momentum": 0.3,
           "Type": "Momentum"
         },
         "Type": "Standard"
@@ -300,8 +300,8 @@
         ],
         "ActivatorType": "LeakyReLU",
         "GradientAdjustmentParameters": {
-				"LearningRate": 0.001,	
-				"Momentum": 0.1,
+				"LearningRate": 0.005,	
+				"Momentum": 0.3,
           "Type": "Momentum"
         },
         "Type": "Standard"
